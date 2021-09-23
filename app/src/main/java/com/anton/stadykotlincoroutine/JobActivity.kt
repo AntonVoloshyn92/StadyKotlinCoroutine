@@ -42,10 +42,10 @@ class JobActivity : AppCompatActivity() {
     fun ProgressBar.startJobOrCancel(job: Job) {
         if (this.progress > 0) {
             Log.d(TAG, "${job} is already active. Cancelling...")
-            jobButton.text = "Start job"
+            jobButton.text = getString(R.string.start_job)
             resetJob()
         } else {
-            jobButton.text = "Cancel job"
+            jobButton.text = getString(R.string.cancel_job)
             CoroutineScope(Dispatchers.IO + job).launch {
                 Log.d(TAG, "coroutin ${this} is activaited with job")
 
