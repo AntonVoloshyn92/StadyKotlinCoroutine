@@ -32,6 +32,7 @@ class JobActivity : AppCompatActivity() {
             jobProgressBar.startJobOrCancel(job)
         }
     }
+
     private fun initUI() {
         jobButton = findViewById(R.id.job_button)
         jobProgressBar = findViewById(R.id.job_progress_bar)
@@ -59,7 +60,7 @@ class JobActivity : AppCompatActivity() {
     }
 
     private fun updateJobCompleteTextView(text: String) {
-        GlobalScope.launch(Dispatchers.Main) {
+        CoroutineScope(Dispatchers.Main).launch {
             jobCompleteText.text = text
         }
     }
@@ -71,7 +72,7 @@ class JobActivity : AppCompatActivity() {
         initJob()
     }
 
-    fun initJob() {
+    private fun initJob() {
         job = Job()
         job.invokeOnCompletion {
             it?.message.let {
@@ -87,8 +88,8 @@ class JobActivity : AppCompatActivity() {
         jobProgressBar.progress = PROGRESS_START
     }
 
-    fun showToast(text: String) {
-        GlobalScope.launch(Dispatchers.Main) {
+    private fun showToast(text: String) {
+        CoroutineScope(Dispatchers.Main).launch {
             Toast.makeText(this@JobActivity, text, Toast.LENGTH_LONG).show()
         }
     }
